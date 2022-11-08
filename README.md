@@ -1,5 +1,5 @@
-# Confirm Chat Send
+# Are You Focused?
 
-A [Foundry VTT](https://foundryvtt.com) module for careful users who don't want to accidentally send the message they're typing before finishing. You can select which message types to confirm in your settings, and every time you try to send a message of that type, it will ask you for confirmation, first. Canceling will allow you to continue working on your message. You can also use the keyboard shortcuts ALT + S or ALT + C to submit or cancel, respectively.
+A [Foundry VTT](https://foundryvtt.com) module to show GMs which players have the Foundry window focused so they can gauge player engagement. When a player unfocuses the Foundry window, their name on the player list will have a strike through and be semi-transparent.
 
-Each of your players can customize their own settings for themselves, or disable all message types so they won't be asked to confirm any chat messages.
+This also works with the [*PopOut!*](foundryvtt.com/packages/popout) module so that even if they have a Foundry pop-out window visible but not the main window, they'll be considered focused.
