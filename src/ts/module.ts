@@ -32,7 +32,7 @@ Hooks.once("init", () => {
     AreYouFocused.module = (game as Game).modules.get(moduleId);
     // @ts-ignore
     AreYouFocused.module.api = {
-        ConfirmChatSend: AreYouFocused,
+        AreYouFocused: AreYouFocused,
     }
     console.log(`Initializing ${moduleId}`);
 
