@@ -1,7 +1,7 @@
 {
-  "id": "confirm-chat-send",
-  "title": "Confirm Chat Send",
-  "description": "Lets careful users confirm their chat messages before sending them.",
+  "id": "are-you-focused",
+  "title": "Are You Focused?",
+  "description": "Shows whether players have Foundry focused.",
   "authors": [
     {
       "name": "Asinphi",
@@ -19,13 +19,7 @@
     "minimum": "10",
     "verified": "10"
   },
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "languages/en.json"
-    }
-  ],
+  "socket": true,
   "styles": ["style.css"],
   "esmodules": ["scripts/module.js"]
 }
