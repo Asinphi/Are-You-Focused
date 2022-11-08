@@ -1,4 +1,8 @@
-#player-list .player.unfocused-player .player-name {
+.player.unfocused-player .player-name {
 		opacity: 0.5;
+}
+
+#player-list .player.no-visibility-player .player-name {
 		text-decoration: line-through;
+		opacity: 0.3;
 }
