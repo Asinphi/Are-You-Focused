@@ -20,6 +20,7 @@ function emitFocusStatus() {
 
 Hooks.once("ready", () => {
     if (!game.user.isGM) {
+        emitFocusStatus();
         window.addEventListener("visibilitychange", emitFocusStatus);
         window.addEventListener("focus", emitFocusStatus);
         window.addEventListener("blur", emitFocusStatus);
