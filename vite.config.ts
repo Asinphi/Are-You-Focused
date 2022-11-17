@@ -57,6 +57,7 @@ function updateModuleManifestPlugin(): Plugin {
       >;
       manifestJson["version"] = version;
       if (githubProject) {
+        manifestJson["url"] = `https://github.com/${githubProject}`;
         const baseUrl = `https://github.com/${githubProject}/releases`;
         manifestJson["manifest"] = `${baseUrl}/latest/download/module.json`;
         if (githubTag) {
