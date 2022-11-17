@@ -40,12 +40,17 @@ Hooks.once("ready", () => {
             foundryWindows.splice(foundryWindows.indexOf(popout), 1);
         });
     } else { // GM
+        Hooks.on("renderPlayerList", (playerList: PlayerList, element: JQuery, usersData: any) => {
+            document.getElementById("player-list").classList.toggle("player-list--dm-view", true);
+        });
+
         game.socket.on("module.are-you-focused", ({visible, focus, userId}: {visible: boolean, focus: boolean, userId: string}) => {
             if (!userId) return; // request
             AreYouFocused.log("Received focus status", focus, "for user", userId);
             const playerEl = document.querySelector(`#player-list .player[data-user-id="${userId}"]`) as HTMLElement;
             playerEl.classList.toggle("unfocused-player", !focus);
             playerEl.classList.toggle("no-visibility-player", !visible);
+            playerEl.classList.toggle("tracked-player", true);
         });
 
         game.socket.emit("module.are-you-focused", { request: true });

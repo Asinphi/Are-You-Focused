@@ -1,8 +1,13 @@
-.player.unfocused-player .player-name {
+.player-list--dm-view .tracked-player .player-name {
+		text-decoration: unset;
+		opacity: unset;
+}
+
+.player.tracked-player.unfocused-player .player-name {
 		opacity: 0.5;
 }
 
-#player-list .player.no-visibility-player .player-name {
+.player-list--dm-view .player-name, #player-list .player.tracked-player.no-visibility-player .player-name {
 		text-decoration: line-through;
 		opacity: 0.3;
 }
