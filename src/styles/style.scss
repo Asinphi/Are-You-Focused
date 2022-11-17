@@ -1,13 +1,21 @@
-.player-list--dm-view .tracked-player .player-name {
-		text-decoration: unset;
-		opacity: unset;
+@keyframes loading-player {
+		from {
+    		opacity: 0.1;
+  	} to {
+  		  opacity: 0.8;
+  	}
 }
 
-.player.tracked-player.unfocused-player .player-name {
+.player-list--gm-view .player:not(.tracked-player) .player-name {
+		text-decoration: line-through;
+		animation: loading-player 1s infinite alternate;
+}
+
+.unfocused-player .player-name {
 		opacity: 0.5;
 }
 
-.player-list--dm-view .player-name, #player-list .player.tracked-player.no-visibility-player .player-name {
+#player-list .player.tracked-player.no-visibility-player .player-name {
 		text-decoration: line-through;
 		opacity: 0.3;
 }

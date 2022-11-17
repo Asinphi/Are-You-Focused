@@ -41,8 +41,11 @@ Hooks.once("ready", () => {
         });
     } else { // GM
         Hooks.on("renderPlayerList", (playerList: PlayerList, element: JQuery, usersData: any) => {
-            document.getElementById("player-list").classList.toggle("player-list--dm-view", true);
+            document.getElementById("player-list").classList.toggle("player-list--gm-view", true);
+            document.querySelector(`#player-list .player[data-user-id="${game.user.id}"]`).classList.toggle("tracked-player", true);
         });
+        document.getElementById("player-list").classList.toggle("player-list--gm-view", true);
+        document.querySelector(`#player-list .player[data-user-id="${game.user.id}"]`).classList.toggle("tracked-player", true);
 
         game.socket.on("module.are-you-focused", ({visible, focus, userId}: {visible: boolean, focus: boolean, userId: string}) => {
             if (!userId) return; // request
