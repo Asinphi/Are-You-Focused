@@ -40,12 +40,25 @@ Hooks.once("ready", () => {
             foundryWindows.splice(foundryWindows.indexOf(popout), 1);
         });
     } else { // GM
-        Hooks.on("renderPlayerList", (playerList: PlayerList, element: JQuery, usersData: any) => {
+        let playerStatuses = new Map<string, { visible: boolean, focus: boolean }>();
+
+        function processPlayerList() {
             document.getElementById("player-list").classList.toggle("player-list--gm-view", true);
             document.querySelector(`#player-list .player[data-user-id="${game.user.id}"]`).classList.toggle("tracked-player", true);
-        });
-        document.getElementById("player-list").classList.toggle("player-list--gm-view", true);
-        document.querySelector(`#player-list .player[data-user-id="${game.user.id}"]`).classList.toggle("tracked-player", true);
+            document.querySelector(`#player-list .player[data-user-id="${game.user.id}"]`).classList.toggle("tracked-player", true);
+            for (const [userId, status] of playerStatuses) {
+                const player = document.querySelector(`#player-list .player[data-user-id="${userId}"]`);
+                if (player) {
+                    player.classList.toggle("tracked-player", true);
+                    player.classList.toggle("unfocused-player", !status.focus);
+                    player.classList.toggle("no-visibility-player", !status.visible);
+                } else
+                    playerStatuses.delete(userId);
+            }
+        }
+        processPlayerList()
+        Hooks.on("renderPlayerList", processPlayerList); // Player list re-renders every player join, clearing all data
+
 
         game.socket.on("module.are-you-focused", ({visible, focus, userId}: {visible: boolean, focus: boolean, userId: string}) => {
             if (!userId) return; // request
@@ -54,6 +67,7 @@ Hooks.once("ready", () => {
             playerEl.classList.toggle("unfocused-player", !focus);
             playerEl.classList.toggle("no-visibility-player", !visible);
             playerEl.classList.toggle("tracked-player", true);
+            playerStatuses.set(userId, {visible, focus});
         });
 
         game.socket.emit("module.are-you-focused", { request: true });
