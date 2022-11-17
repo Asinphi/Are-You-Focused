@@ -25,6 +25,10 @@ Hooks.once("ready", () => {
         window.addEventListener("focus", emitFocusStatus);
         window.addEventListener("blur", emitFocusStatus);
 
+        game.socket.on("module.are-you-focused", ({ request } : { request: boolean }) => {
+            if (request) emitFocusStatus();
+        });
+
         Hooks.on("PopOut:popout", (app: Application, popout: Window) => {
             foundryWindows.push(popout);
             popout.addEventListener("visibilitychange", emitFocusStatus);
@@ -37,10 +41,13 @@ Hooks.once("ready", () => {
         });
     } else { // GM
         game.socket.on("module.are-you-focused", ({visible, focus, userId}: {visible: boolean, focus: boolean, userId: string}) => {
+            if (!userId) return; // request
             AreYouFocused.log("Received focus status", focus, "for user", userId);
             const playerEl = document.querySelector(`#player-list .player[data-user-id="${userId}"]`) as HTMLElement;
             playerEl.classList.toggle("unfocused-player", !focus);
             playerEl.classList.toggle("no-visibility-player", !visible);
         });
+
+        game.socket.emit("module.are-you-focused", { request: true });
     }
 });
