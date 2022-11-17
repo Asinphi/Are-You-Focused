@@ -45,7 +45,6 @@ Hooks.once("ready", () => {
         function processPlayerList() {
             document.getElementById("player-list").classList.toggle("player-list--gm-view", true);
             document.querySelector(`#player-list .player[data-user-id="${game.user.id}"]`).classList.toggle("tracked-player", true);
-            document.querySelector(`#player-list .player[data-user-id="${game.user.id}"]`).classList.toggle("tracked-player", true);
             for (const [userId, status] of playerStatuses) {
                 const player = document.querySelector(`#player-list .player[data-user-id="${userId}"]`);
                 if (player) {
