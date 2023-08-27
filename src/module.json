@@ -18,7 +18,7 @@
   "scripts": [],
   "compatibility": {
     "minimum": "10",
-    "verified": "10"
+    "verified": "11"
   },
   "socket": true,
   "styles": ["style.css"],
