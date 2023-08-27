@@ -1,21 +1,21 @@
 @keyframes loading-player {
-		from {
-    		opacity: 0.1;
+	from {
+		opacity: 0.1;
   	} to {
-  		  opacity: 0.8;
+		opacity: 0.8;
   	}
 }
 
 .player-list--gm-view .player:not(.tracked-player) .player-name {
-		text-decoration: line-through;
-		animation: loading-player 1s infinite alternate;
+    text-decoration: line-through;
+    animation: loading-player 1s infinite alternate;
 }
 
 .unfocused-player .player-name {
-		opacity: 0.5;
+    opacity: 0.5;
 }
 
 #player-list .player.tracked-player.no-visibility-player .player-name {
-		text-decoration: line-through;
-		opacity: 0.3;
+    text-decoration: line-through;
+    opacity: 0.3;
 }
