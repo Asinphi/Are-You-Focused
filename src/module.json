@@ -6,7 +6,7 @@
   "authors": [
     {
       "name": "Asinphi",
-      "discord": "JL#8778"
+      "discord": "liu.j"
     }
   ],
   "version": "1.0.0",
@@ -18,7 +18,7 @@
   "scripts": [],
   "compatibility": {
     "minimum": "10",
-    "verified": "11"
+    "verified": "12"
   },
   "socket": true,
   "styles": ["style.css"],
