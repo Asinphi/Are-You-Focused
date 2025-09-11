@@ -10,12 +10,12 @@ function emitFocusStatus() {
     const focusedWindow = foundryWindows.find((w) => w.document.hasFocus());
     let isNowFocused = focusedWindow !== undefined;
     let isNowVisible = visibleWindow !== undefined;
-    if (isNowFocused !== isFocused && isNowVisible !== isVisible) // Don't emit if nothing changed
+    if (isNowFocused === isFocused && isNowVisible === isVisible) // Don't emit if nothing changed
         return;
     isVisible = isNowVisible;
     isFocused = isNowFocused;
     game.socket.emit("module.are-you-focused", {"visible": isVisible, "focus": isFocused, "userId": game.user.id});
-    AreYouFocused.log("Emitting focus status", isVisible, visibleWindow);
+    AreYouFocused.log("Emitting focus status", isFocused, isVisible, visibleWindow);
 }
 
 Hooks.once("ready", () => {
@@ -43,10 +43,10 @@ Hooks.once("ready", () => {
         let playerStatuses = new Map<string, { visible: boolean, focus: boolean }>();
 
         function processPlayerList() {
-            document.getElementById("player-list").classList.toggle("player-list--gm-view", true);
-            document.querySelector(`#player-list .player[data-user-id="${game.user.id}"]`).classList.toggle("tracked-player", true);
+            document.querySelector("#players-active .players-list").classList.toggle("player-list--gm-view", true);
+            document.querySelector(`#players-active .player[data-user-id="${game.user.id}"]`).classList.toggle("tracked-player", true);
             for (const [userId, status] of playerStatuses) {
-                const player = document.querySelector(`#player-list .player[data-user-id="${userId}"]`);
+                const player = document.querySelector(`#players-active .player[data-user-id="${userId}"]`);
                 if (player) {
                     player.classList.toggle("tracked-player", true);
                     player.classList.toggle("unfocused-player", !status.focus);
@@ -62,7 +62,7 @@ Hooks.once("ready", () => {
         game.socket.on("module.are-you-focused", ({visible, focus, userId}: {visible: boolean, focus: boolean, userId: string}) => {
             if (!userId) return; // request
             AreYouFocused.log("Received focus status", focus, "for user", userId);
-            const playerEl = document.querySelector(`#player-list .player[data-user-id="${userId}"]`) as HTMLElement;
+            const playerEl = document.querySelector(`#players-active .player[data-user-id="${userId}"]`) as HTMLElement;
             playerEl.classList.toggle("unfocused-player", !focus);
             playerEl.classList.toggle("no-visibility-player", !visible);
             playerEl.classList.toggle("tracked-player", true);
