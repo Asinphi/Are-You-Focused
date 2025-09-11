@@ -8,12 +8,8 @@ let isFocused: boolean = true;
 function emitFocusStatus() {
     const visibleWindow = foundryWindows.find((w) => w.document.visibilityState === "visible");
     const focusedWindow = foundryWindows.find((w) => w.document.hasFocus());
-    let isNowFocused = focusedWindow !== undefined;
-    let isNowVisible = visibleWindow !== undefined;
-    if (isNowFocused === isFocused && isNowVisible === isVisible) // Don't emit if nothing changed
-        return;
-    isVisible = isNowVisible;
-    isFocused = isNowFocused;
+    isVisible = visibleWindow !== undefined;
+    isFocused = focusedWindow !== undefined;
     game.socket.emit("module.are-you-focused", {"visible": isVisible, "focus": isFocused, "userId": game.user.id});
     AreYouFocused.log("Emitting focus status", isFocused, isVisible, visibleWindow);
 }
